@@ -1,47 +1,43 @@
-public class Enigma
-{
-    // public static void CaesarCipher()   // #1
-    // {
-    //     System.out.println("CeasarCipher e/dcode");
-    // }
+public class Enigma{
 
-    // public static void SecondCipher()   // #2
-    // {
-    //     System.out.println("SecondCipher e/dcode");
-    // }
-
-    // public static void AutokeyCipher()  // #3
-    // {
-    //     System.out.println("AutokeyCipher e/dcode");
-    // }
-
-    // public static void FourthCipher()  // #4
-    // {
-    //     System.out.println("FourthCipher e/dcode");
-    // }
-
-
-    public static void main(String[] args)
-    {
-        try
-        {
-            if (args[0].equalsIgnoreCase("-l"))
-            {
-                System.out.print
-                (
-                "Possible Ciphers:\n"+
-                "#1 CEZARRRR\n"+
-                "#2 DRUGIEE\n"+
-                "#3 AUTOKEYYYY\n"+
-                "#4 I CZWARTE\n"
-                );
+    private static void startProgram(String[] commandLineArgs) {
+		String displayParameter = "";
+        String cipherType = "";
+        try{
+            displayParameter = commandLineArgs[0];
+            if (displayParameter.equalsIgnoreCase("-h")){
+                System.out.println("Print help");
+                System.exit(0);
             }
+            cipherType = commandLineArgs[1];
+
         }
 
-        catch (ArrayIndexOutOfBoundsException e)
-        {
-            System.out.println("Not enough parameters! Try: java Enigma -l");
+        catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("Not enough parameters! Try: java Enigma -h");
             System.exit(0);
         }
+       
+        if (displayParameter.equalsIgnoreCase("-l")){
+            System.out.print
+            (
+            "Possible Ciphers:\n"+
+            "Atbash\n"+
+            "#2 DRUGIEE\n"+
+            "#3 AUTOKEYYYY\n"+
+            "#4 I CZWARTE\n"
+            );
+        }
+        else if (cipherType.equalsIgnoreCase("Atbash")){
+            Atbash atbash = new Atbash();
+            atbash.atbashCipher();
+        }
+	}
+
+
+    public static void main(String[] args){
+        startProgram(args);       
     }
 }
+
+	
