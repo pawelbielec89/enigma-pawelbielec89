@@ -1,6 +1,6 @@
 public class Atbash{
     public void atbashCipher(String inputMessage){
-        
+     
         String[] userMessage = inputMessage.split("");
 
         String[] lettersBeginning = {"A","B","C","D","E","F","G","H","I","J","K","L","M"};

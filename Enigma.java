@@ -31,7 +31,7 @@ public class Enigma{
         }
         else if (cipherType.equalsIgnoreCase("Atbash")){
             Atbash atbash = new Atbash();
-            atbash.atbashCipher();
+            atbash.atbashCipher(message);
         }
 
         else if (cipherType.equalsIgnoreCase("Baconian")){
