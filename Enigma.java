@@ -3,6 +3,7 @@ public class Enigma{
     private static void startProgram(String[] commandLineArgs) {
 		String displayParameter = "";
         String cipherType = "";
+        String message = "message";
         try{
             displayParameter = commandLineArgs[0];
             if (displayParameter.equalsIgnoreCase("-h")){
@@ -31,6 +32,11 @@ public class Enigma{
         else if (cipherType.equalsIgnoreCase("Atbash")){
             Atbash atbash = new Atbash();
             atbash.atbashCipher(message);
+        }
+
+        else if (cipherType.equalsIgnoreCase("Baconian")){
+            Baconian baconian = new Baconian();
+            baconian.getAttributes(displayParameter, message);
         }
 	}
 
