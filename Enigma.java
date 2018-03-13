@@ -14,7 +14,7 @@ public class Enigma{
         }
 
         catch (ArrayIndexOutOfBoundsException e){
-            System.out.println("Not enough parameters! Try: java Enigma -h");
+            System.out.println("ot enough parameters! Try: java Enigma -h");
             System.exit(0);
         }
        
