@@ -22,10 +22,14 @@ public class Baconian{
         isValidChar(input);
         isValidLength(input);
     }
+
+    private static String[] getAlphabet(){
+        String [] alphabet = {"0", "A", "B", "C"};
+        return alphabet;
+    }
     
-    private static void decode(String message){
+    private static void decodeChain(String message){
         
-        System.out.println("decoding " + message + "...");
         int alphabetIndex = 0;
 
         for (int i=4, j=1; i>=0 && j>=0; i--, j*=2){
@@ -41,13 +45,22 @@ public class Baconian{
             }
 
         }
-        System.out.println(alphabetIndex);
+
+        String[] alphabet = getAlphabet();
+        System.out.print(alphabet[alphabetIndex]);
+    }
+
+    private static void decode(String[] message){
+        for (String chain : message){
+            decodeChain(chain);
+        }
     }
 
     public void getAttributes(String displayParameter, String message){
-        if (displayParameter.equalsIgnoreCase("-d")){   
+        if (displayParameter.equalsIgnoreCase("-d")){
             isValidInput("aaabb");
-            decode("aaabb");
+            String[] d = {"aaaba", "aaaab"};
+            decode(d);
         }
     }
 }
