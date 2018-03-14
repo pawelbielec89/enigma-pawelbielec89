@@ -24,7 +24,7 @@ public class Enigma{
             (
             "Possible Ciphers:\n"+
             "Atbash\n"+
-            "#2 DRUGIEE\n"+
+            "Rail_fence\n"+
             "#3 AUTOKEYYYY\n"+
             "#4 I CZWARTE\n"
             );
@@ -37,6 +37,12 @@ public class Enigma{
         else if (cipherType.equalsIgnoreCase("Baconian")){
             Baconian baconian = new Baconian();
             baconian.getAttributes(displayParameter, message);
+        }
+        else if (cipherType.equalsIgnoreCase("Rail_fence")){
+            Rail_fence railFence = new Rail_fence();
+            railFence.railFenceCipher();
+            railFence.Cizar();
+            
         }
 	}
 
