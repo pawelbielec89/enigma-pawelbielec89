@@ -94,7 +94,7 @@ public class Baconian{
 
     public void encription(String mode, String message){
         // String[] cipher = message.split(" ");
-        String[] cipher = {"aaaaa", "aabbb"};
+        String[] cipher = {"aaaaa", "bbaab"};
         if (mode.equalsIgnoreCase("-d"))            
             decodeCipher(cipher);
         else
