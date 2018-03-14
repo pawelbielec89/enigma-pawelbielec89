@@ -36,7 +36,7 @@ public class Enigma{
 
         else if (cipherType.equalsIgnoreCase("Baconian")){
             Baconian baconian = new Baconian();
-            baconian.getAttributes(displayParameter, message);
+            baconian.encription(displayParameter, message);
         }
 	}
 
