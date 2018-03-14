@@ -15,21 +15,13 @@ public class Baconian{
         int alphabetIndex = 0;
 
         for (int i=4, j=1; i>=0; i--, j*=2){
-
-            int letterIndex = chain.offsetByCodePoints(0, i);
-            String letter = chain.substring(letterIndex, letterIndex + 1);
-            
-            if (letter.equalsIgnoreCase("A")){
-                alphabetIndex += 0;
-            }
-            else if (letter.equalsIgnoreCase("B")){
+            char c = chain.charAt(i);
+            if (c == 'b')
                 alphabetIndex += j;
-            }
-
         }
 
         String[] alphabet = getAlphabet();
-        System.out.print(alphabet[alphabetIndex - 1]);
+        System.out.print(alphabet[alphabetIndex]);
     }
 
     private static void decodeCipher(String[] message){
@@ -43,21 +35,70 @@ public class Baconian{
                 System.exit(0);
             }
             decodeChain(chain);
+            System.out.println("dupa");
         }
     }
 
-    private static void encodeCipher(String[] message){
-        System.out.println("dupa");
+    private static int getLetterIndex(String letter){
+        
+        int letterIndex = 0;
+        String[] alphabet = getAlphabet();
+        
+        for ( String eachLetter : alphabet){
+            if (letter.equalsIgnoreCase(eachLetter))
+                return letterIndex;
+            else letterIndex++;
+        }
+        return letterIndex;
+    }
+
+    private static String getLetterCipher(int index){
+
+        String cipher;
+        StringBuilder builder = new StringBuilder();
+
+        for (int i=0; i<5; i++){
+            if (index % 2 == 0){
+                builder.append("a");
+                index /= 2;
+            }
+            else{
+                builder.append("b");
+                index = (index - 1)/2;
+            }
+        }
+
+        cipher = builder.reverse().toString();
+        return cipher;
+
+    }
+
+    private static void encodeCipher(String message){
+        
+        int letterIndex;
+        String answer;
+        StringBuilder builder = new StringBuilder();
+
+        for (char c : message.toCharArray()){
+            if (c == ' ')
+                builder.append("");
+            else {
+                String letter = "" + c;
+                letterIndex = getLetterIndex(letter);
+                builder.append(getLetterCipher(letterIndex));
+                builder.append(" ");
+            }
+        }
+        answer = builder.toString();
+        System.out.println(answer);
     }
 
     public void encription(String mode, String message){
         // String[] cipher = message.split(" ");
-        String[] cipher = {"baaba", "bbbbb"};
-        if (mode.equalsIgnoreCase("-d")){            
+        String[] cipher = {"aaaaa", "aabbb"};
+        if (mode.equalsIgnoreCase("-d"))            
             decodeCipher(cipher);
-        }
-        else{
-            encodeCipher(cipher);
-        }
+        else
+            encodeCipher("hehu ojre as");
     }
 }
