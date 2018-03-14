@@ -14,7 +14,7 @@ public class Baconian{
         
         int alphabetIndex = 0;
 
-        for (int i=4, j=1; i>=0 && j>=0; i--, j*=2){
+        for (int i=4, j=1; i>=0; i--, j*=2){
 
             int letterIndex = chain.offsetByCodePoints(0, i);
             String letter = chain.substring(letterIndex, letterIndex + 1);
@@ -36,7 +36,7 @@ public class Baconian{
 
         for (String chain : message){
             try{
-                Validation.validate(chain);
+                Validation.validateCipher(chain);
             }
             catch (InvalidInputException e){
                 System.out.println(e.getMessage());
@@ -46,10 +46,18 @@ public class Baconian{
         }
     }
 
-    public void encription(String displayParameter, String message){
+    private static void encodeCipher(String[] message){
+        System.out.println("dupa");
+    }
+
+    public void encription(String mode, String message){
+        // String[] cipher = message.split(" ");
         String[] cipher = {"baaba", "bbbbb"};
-        if (displayParameter.equalsIgnoreCase("-d")){            
+        if (mode.equalsIgnoreCase("-d")){            
             decodeCipher(cipher);
+        }
+        else{
+            encodeCipher(cipher);
         }
     }
 }

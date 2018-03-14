@@ -16,7 +16,7 @@ public class Validation{
         }
     }
 
-    public static void validate(String chain) throws InvalidInputException{
+    public static void validateCipher(String chain) throws InvalidInputException{
         isValidChain(chain);
         isValidLength(chain);
     }
