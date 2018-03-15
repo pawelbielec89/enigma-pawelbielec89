@@ -83,7 +83,6 @@ public class Enigma{
         Scanner sc = new Scanner(System.in);
         List<String> messageLoaded = fileReader(sc);
         String message = formatMessage(messageLoaded);
-        System.out.println(message);
         String option = "-h, -l, -e, -d";
 
         if (option.contains(args[0])){
