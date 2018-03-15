@@ -3,10 +3,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Xor{
-    public static void main(String[] args){
+    public static void encript(String message){
 
       
-        String message = "UUUU";
+        // String message = "UUUU";
         String alphabetString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         int num = 10;
                 
