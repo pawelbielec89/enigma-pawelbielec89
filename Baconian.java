@@ -1,12 +1,12 @@
 public class Baconian{
 
     private static String[] getAlphabet(){
-        String [] alphabet = {"A", "Ą", "B", "C", "Ć",
-                              "D", "E", "Ę", "F", "G",
-                              "H", "I", "J", "K", "L",
-                              "M", "N", "Ń", "O", "Ó",
+        String [] alphabet = {"A", "B", "C", "D", "E",
+                              "F", "G", "H", "I", "J",
+                              "K", "L", "M", "N", "O",
                               "P", "Q", "R", "S", "T",
-                              "U", "V", "W", "X", "Y", "Z"};
+                              "U", "V", "W", "X", "Y",
+                              "Z"};
         return alphabet;
     }
     
@@ -35,7 +35,6 @@ public class Baconian{
                 System.exit(0);
             }
             decodeChain(chain);
-            System.out.println("dupa");
         }
     }
 
@@ -95,7 +94,7 @@ public class Baconian{
 
     public void encription(String mode, String message){
         // String[] cipher = message.split(" ");
-        String[] cipher = {"aaaaa", "aabbb"};
+        String[] cipher = {"aaaaa", "bbaab"};
         if (mode.equalsIgnoreCase("-d"))            
             decodeCipher(cipher);
         else
