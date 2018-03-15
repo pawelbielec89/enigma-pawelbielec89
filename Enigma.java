@@ -9,40 +9,45 @@ import java.util.List;
 import sun.security.pkcs11.wrapper.CK_MECHANISM;
 
 public class Enigma{
-
     private static void startProgram(String[] commandLineArgs, String message) {
 		String displayParameter = "";
         String cipherType = "";
-        String cipherKey = "";
+        int cipherKey = 0;
+        String cipherAlphabet = "";
         try{
-            
             displayParameter = commandLineArgs[0];
             if (displayParameter.equalsIgnoreCase("-h")){
-                System.out.println("Always read carrefully help");
-                System.exit(0);    
+                System.out.println("Print help");
+                System.exit(0);
             }
-            if(displayParameter.equalsIgnoreCase("-l")){
-                System.out.print(
-                "Possible Ciphers:\n"+
-                "Atbash\n"+
-                "Caesar\n"+
-                "Baconian\n"+
-                "Xor\n");
-            }             
-            if (commandLineArgs.length > 1)
-                cipherType = commandLineArgs[1];
-            if (commandLineArgs.length > 2)
-                cipherKey = commandLineArgs[2];  
+            cipherType = commandLineArgs[1];
+
+            try{
+                cipherKey = Integer.parseInt(commandLineArgs[2]);
+            }
+            catch (NumberFormatException ex){
+                System.out.println("Number is require ! ");
+                System.exit(0);
+            }
+
         }
 
         catch (ArrayIndexOutOfBoundsException e){
             System.out.println("Not enough parameters! Try: java Enigma -h");
             System.exit(0);
         }
-    
-        
-        
-        if (cipherType.equalsIgnoreCase("Atbash")){
+
+        if (displayParameter.equalsIgnoreCase("-l")){
+            System.out.print
+            (
+            "Possible Ciphers:\n"+
+            "Atbash\n"+
+            "Caesar\n"+
+            "#3 AUTOKEYYYY\n"+
+            "#4 I CZWARTE\n"
+            );
+        }
+        else if (cipherType.equalsIgnoreCase("Atbash")){
             Atbash atbash = new Atbash();
             atbash.atbashCipher(message);
         }
@@ -52,14 +57,26 @@ public class Enigma{
             baconian.encription(displayParameter, message);
         }
         else if (cipherType.equalsIgnoreCase("Caesar")){
-           
-            Caesar.selectMode(displayParameter, message, cipherKey);
+            Caesar caesarCipher = new Caesar();
+            caesarCipher.encryption(message, cipherKey);
+            //caesarCipher.decodeCipher(message, cipherKey);
+
         }
+        else if (cipherType.equalsIgnoreCase("Trifid")){
+          char[] alphabet = {'a','b','c','d','e','f','g','h','i',
+                              'j','k','l','m','n','o','p','q','r',
+                              's','t','u','v','w','x','y','z','.'};
+          char[] period = cipherPeriod.split("");
+           if(period != alphabet){
+             alphabet = period;
+           }
+          Trifid.selectMode(displayParameter, message, cipherKey, alphabet);
+          }
     }
     public static List<String> fileReader(String sourceFile){
         File file = new File(sourceFile);
         List<String> messageCipher = new ArrayList<>();
-    
+
         try{
             messageCipher = Files.readAllLines(file.toPath());
         }
@@ -69,7 +86,7 @@ public class Enigma{
         if (messageCipher.isEmpty()){
             System.out.println("File is empty: ");
         }
-    
+
 		return messageCipher;
     }
     public static String formatMessage(List<String> messageLoaded){
@@ -87,15 +104,7 @@ public class Enigma{
 
         List<String> messageLoaded = fileReader("code.txt");
         String message = formatMessage(messageLoaded);
-        String option = "-h, -l, -e, -d";
 
-        if (option.contains(args[0])){
-            startProgram(args, message);  
-        }
-        else{
-            System.out.println("Enter -h to help or -l to display list of ciphers");
-        }      
+        startProgram(args, message);
     }
 }
-
-	
