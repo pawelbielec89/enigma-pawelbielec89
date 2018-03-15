@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 import sun.security.pkcs11.wrapper.CK_MECHANISM;
 
@@ -32,9 +33,9 @@ public class Enigma{
             if (commandLineArgs.length > 1)
                 cipherType = commandLineArgs[1];
             if (commandLineArgs.length > 2)
-                cipherKey = commandLineArgs[2];  
+                cipherKey = commandLineArgs[2];
+                
         }
-
         catch (ArrayIndexOutOfBoundsException e){
             System.out.println("Not enough parameters! Try: java Enigma -h");
             System.exit(0);
@@ -56,21 +57,15 @@ public class Enigma{
             Caesar.selectMode(displayParameter, message, cipherKey);
         }
     }
-    public static List<String> fileReader(String sourceFile){
-        File file = new File(sourceFile);
+    public static List<String> fileReader(Scanner file){
+
         List<String> messageCipher = new ArrayList<>();
-    
-        try{
-            messageCipher = Files.readAllLines(file.toPath());
+        while (file.hasNext()){
+            messageCipher.add(file.nextLine());
         }
-        catch (IOException ex){
-            System.out.println("Error occour " + ex);
-        }
-        if (messageCipher.isEmpty()){
-            System.out.println("File is empty: ");
-        }
-    
-		return messageCipher;
+
+        return messageCipher;
+
     }
     public static String formatMessage(List<String> messageLoaded){
 
@@ -85,8 +80,10 @@ public class Enigma{
 
     public static void main(String[] args){
 
-        List<String> messageLoaded = fileReader("code.txt");
+        Scanner sc = new Scanner(System.in);
+        List<String> messageLoaded = fileReader(sc);
         String message = formatMessage(messageLoaded);
+        System.out.println(message);
         String option = "-h, -l, -e, -d";
 
         if (option.contains(args[0])){
@@ -97,5 +94,3 @@ public class Enigma{
         }      
     }
 }
-
-	
