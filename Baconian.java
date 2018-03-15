@@ -14,6 +14,7 @@ public class Baconian{
     private static void decodeChain(String chain){
         
         int alphabetIndex = 0;
+        
 
         for (int i=4, j=1; i>=0; i--, j*=2){
             char c = chain.charAt(i);
