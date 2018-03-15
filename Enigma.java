@@ -15,15 +15,24 @@ public class Enigma{
         String cipherType = "";
         String cipherKey = "";
         try{
+            
             displayParameter = commandLineArgs[0];
             if (displayParameter.equalsIgnoreCase("-h")){
-                System.out.println("Print help");
+                System.out.println("Always read carrefully help");
                 System.exit(0);    
             }
-            if (commandLineArgs.length > 2){
-                cipherKey = commandLineArgs[2]; 
-                }
-            cipherType = commandLineArgs[1];      
+            if(displayParameter.equalsIgnoreCase("-l")){
+                System.out.print(
+                "Possible Ciphers:\n"+
+                "Atbash\n"+
+                "Caesar\n"+
+                "Baconian\n"+
+                "Xor\n");
+            }             
+            if (commandLineArgs.length > 1)
+                cipherType = commandLineArgs[1];
+            if (commandLineArgs.length > 2)
+                cipherKey = commandLineArgs[2];  
         }
 
         catch (ArrayIndexOutOfBoundsException e){
@@ -32,17 +41,8 @@ public class Enigma{
         }
     
         
-        if (displayParameter.equalsIgnoreCase("-l")){
-            System.out.print
-            (
-            "Possible Ciphers:\n"+
-            "Atbash\n"+
-            "Caesar\n"+
-            "#3 AUTOKEYYYY\n"+
-            "#4 I CZWARTE\n"
-            );
-        }
-        else if (cipherType.equalsIgnoreCase("Atbash")){
+        
+        if (cipherType.equalsIgnoreCase("Atbash")){
             Atbash atbash = new Atbash();
             atbash.atbashCipher(message);
         }
@@ -87,8 +87,14 @@ public class Enigma{
 
         List<String> messageLoaded = fileReader("code.txt");
         String message = formatMessage(messageLoaded);
+        String option = "-h, -l, -e, -d";
 
-        startProgram(args, message);       
+        if (option.contains(args[0])){
+            startProgram(args, message);  
+        }
+        else{
+            System.out.println("Enter -h to help or -l to display list of ciphers");
+        }      
     }
 }
 
