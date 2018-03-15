@@ -17,7 +17,6 @@ public class Trifid{
             for(int k = 0; k < arrayLength; k++){
               coordCube[i][j][k] = alphabet[index];
               index++;
-              //System.out.print(coordCube[2][0][0]);
             }
           }
         }
@@ -43,8 +42,6 @@ public class Trifid{
       int[] arrayX = new int[messageLenght];
       int[] arrayY = new int[messageLenght];
       int[] arrayZ = new int[messageLenght];
-    //  for(int x = 0; x < messageLenght; x++){
-    //messageLenght = 19
       while(messageIndex < messageLenght){
         outerloop:
         for(int i = 0; i < arrayLength; i++){
@@ -78,21 +75,25 @@ public class Trifid{
       start += key;
       result.add(matrix.toString());
       }
-
-      int sequence = 0;
-      while (sequence < arrayLength){
-      int beguin = 0;
-      int finish = result.size();
+      String value = "";
       StringBuilder finalCipher = new StringBuilder();
-      for (int i = 0; i < beguin + key && i < finish; i++){
-        int x = Integer.parseInt(result.get(i));
-        int y = Integer.parseInt(result.get(i+1));
-        int z = Integer.parseInt(result.get(i+2));
-
-        finalCipher.append(coordCube[x][y][z]);
+      for (int i = 0; i < (result.size()) ; i++){
+        value = result.get(i);
+        char[] valueArray = value.toCharArray();
+        //System.out.println(valueArray);
+        int amountPerMatrix = value.length()/3;
+        int numericIndex = 0;
+        Character.toString ((char) i);
+        for(int j = 0; j < amountPerMatrix; j++){
+          int xValue = Character.getNumericValue(valueArray[numericIndex]);
+          int yValue = Character.getNumericValue(valueArray[numericIndex+1]);
+          int zValue = Character.getNumericValue(valueArray[numericIndex+2]);
+          finalCipher.append(coordCube[xValue][yValue][zValue]);
+         numericIndex += 3;
       }
-      sequence += key;
+
     }
+    System.out.println(finalCipher);
   }
      public static void decodeCipher(int key,String formatMessage, int messageLenght){
        System.out.print("Dziala Decrypt");

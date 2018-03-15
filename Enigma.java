@@ -71,14 +71,8 @@ public class Enigma{
 
         }
         else if (cipherType.equalsIgnoreCase("Trifid")){
-          char[] alphabet = {'a','b','c','d','e','f','g','h','i',
-                              'j','k','l','m','n','o','p','q','r',
-                              's','t','u','v','w','x','y','z','.'};
-          char[] period = cipherPeriod.split("");
-           if(period != alphabet){
-             alphabet = period;
-           }
-          Trifid.selectMode(displayParameter, message, cipherKey, alphabet);
+            Trifid trifidCipher = new Trifid();
+            trifidCipher.selectMode(displayParameter, message, cipherKey);
           }
     }
     public static List<String> fileReader(Scanner file){
