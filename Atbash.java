@@ -1,5 +1,5 @@
 public class Atbash{
-    public void atbashCipher(String inputMessage){
+    public String atbashCipher(String inputMessage){
      
         String[] userMessage = inputMessage.split("");
 
@@ -21,5 +21,6 @@ public class Atbash{
             }
         }
         System.out.println(Message);
+        return Message;
     }
 }
