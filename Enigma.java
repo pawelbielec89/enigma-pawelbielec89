@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOError;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,11 +15,12 @@ public class Enigma{
 		String displayParameter = "";
         String cipherType = "";
         String cipherKey = "";
+       
         try{
             
             displayParameter = commandLineArgs[0];
             if (displayParameter.equalsIgnoreCase("-h")){
-                System.out.println("Always read carrefully help");
+                System.out.println("Enter -h to encryption or -f to decode cipher");
                 System.exit(0);    
             }
             if(displayParameter.equalsIgnoreCase("-l")){
@@ -44,7 +46,8 @@ public class Enigma{
         
         if (cipherType.equalsIgnoreCase("Atbash")){
             Atbash atbash = new Atbash();
-            atbash.atbashCipher(message);
+            String cipheredMessage = atbash.atbashCipher(message);
+            saveToFile(cipheredMessage);
         }
 
         else if (cipherType.equalsIgnoreCase("Baconian")){
@@ -53,7 +56,8 @@ public class Enigma{
         }
         else if (cipherType.equalsIgnoreCase("Caesar")){
            
-            Caesar.selectMode(displayParameter, message, cipherKey);
+            String cipheredMessage = Caesar.selectMode(displayParameter, message, cipherKey);
+            saveToFile(cipheredMessage);
         }
     }
     public static List<String> fileReader(String sourceFile){
@@ -70,8 +74,22 @@ public class Enigma{
             System.out.println("File is empty: ");
         }
     
-		return messageCipher;
+        return messageCipher;
     }
+
+    public static void saveToFile(String dateToSave) {
+
+        try{
+            FileWriter file = new FileWriter("decodedCipher.txt");           
+                        
+            file.write(dateToSave + "\n");
+            file.close();
+        }
+        catch(IOException ioe){
+            System.err.println("IOException: " + ioe.getMessage());
+        }
+    }
+
     public static String formatMessage(List<String> messageLoaded){
 
         String message = "";
@@ -89,10 +107,15 @@ public class Enigma{
         String message = formatMessage(messageLoaded);
         String option = "-h, -l, -e, -d";
 
-        if (option.contains(args[0])){
-            startProgram(args, message);  
-        }
-        else{
+        try{
+            if (option.contains(args[0])){
+                startProgram(args, message);  
+            }
+            else{
+                System.out.println("Enter -h to help or -l to display list of ciphers");
+            } 
+        }  
+        catch(ArrayIndexOutOfBoundsException ex){
             System.out.println("Enter -h to help or -l to display list of ciphers");
         }      
     }
