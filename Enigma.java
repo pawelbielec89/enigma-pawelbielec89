@@ -21,7 +21,7 @@ public class Enigma{
             
             displayParameter = commandLineArgs[0];
             if (displayParameter.equalsIgnoreCase("-h")){
-                System.out.println("Enter -h to encryption or -f to decode cipher");
+                System.out.println("Enter -e to encryption or -d to decode cipher");
                 System.exit(0);    
             }
             if(displayParameter.equalsIgnoreCase("-l")){
