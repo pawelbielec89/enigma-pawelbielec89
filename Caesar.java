@@ -1,15 +1,13 @@
-import java.util.Scanner;
-
 public class Caesar{
+    public void encryption(String message, int key){
 
-    Scanner myscanner = new Scanner(System.in);
-    int key = myscanner.nextInt();
-
-    public void encryption(String message){
-        int messageLenght = message.length(); 
+        String formatMessage = "";
+        formatMessage = String.join("", message.split(" "));
+        int messageLenght = formatMessage.length(); 
+        
 
         for(int i = 0; i < messageLenght ; i++){   
-            char character = message.charAt(i); 
+            char character = formatMessage.charAt(i); 
             int ascii = (int) character;
             if (ascii + key > 122){
                 ascii -= 26;
@@ -23,7 +21,7 @@ public class Caesar{
         }
     }
 
-    public void decodeCipher(String message){      
+    public void decodeCipher(String message, int key){      
 
         int messageLenght = message.length(); 
         

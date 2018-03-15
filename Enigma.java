@@ -13,6 +13,7 @@ public class Enigma{
     private static void startProgram(String[] commandLineArgs, String message) {
 		String displayParameter = "";
         String cipherType = "";
+        int cipherKey = 0;
         try{
             displayParameter = commandLineArgs[0];
             if (displayParameter.equalsIgnoreCase("-h")){
@@ -21,6 +22,14 @@ public class Enigma{
             }
             cipherType = commandLineArgs[1];
 
+            try{
+                cipherKey = Integer.parseInt(commandLineArgs[2]);
+            }
+            catch (NumberFormatException ex){
+                System.out.println("Number is require ! ");
+                System.exit(0);
+            }
+            
         }
 
         catch (ArrayIndexOutOfBoundsException e){
@@ -33,7 +42,7 @@ public class Enigma{
             (
             "Possible Ciphers:\n"+
             "Atbash\n"+
-            "Rail_fence\n"+
+            "Caesar\n"+
             "#3 AUTOKEYYYY\n"+
             "#4 I CZWARTE\n"
             );
@@ -49,8 +58,8 @@ public class Enigma{
         }
         else if (cipherType.equalsIgnoreCase("Caesar")){
             Caesar caesarCipher = new Caesar();
-            //caesarCipher.encryption(message);
-            caesarCipher.decodeCipher(message);
+            caesarCipher.encryption(message, cipherKey);
+            //caesarCipher.decodeCipher(message, cipherKey);
             
         }
     }
@@ -73,8 +82,9 @@ public class Enigma{
     public static String formatMessage(List<String> messageLoaded){
 
         String message = "";
-        for (String element: messageLoaded){
-            message = String.join("", element.split(" "));
+
+        for (int i = 0; i < messageLoaded.size(); i++ ){
+            message += String.join("", messageLoaded.get(i));
         }
         return message;
     }
