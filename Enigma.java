@@ -14,8 +14,8 @@ public class Enigma{
     private static void startProgram(String[] commandLineArgs, String message) {
 		String displayParameter = "";
         String cipherType = "";
-        String cipherKey = "";
-       
+        int cipherKey = 0;
+        
         try{
             
             displayParameter = commandLineArgs[0];
@@ -34,15 +34,20 @@ public class Enigma{
             if (commandLineArgs.length > 1)
                 cipherType = commandLineArgs[1];
             if (commandLineArgs.length > 2)
-                cipherKey = commandLineArgs[2];  
+                try{
+                    cipherKey = Integer.parseInt(commandLineArgs[2]);
+                }
+                catch(NumberFormatException ex){
+                    System.out.println("Need intiger");
+                    System.exit(0);         
+                }
+                
         }
 
         catch (ArrayIndexOutOfBoundsException e){
             System.out.println("Not enough parameters! Try: java Enigma -h");
             System.exit(0);
         }
-    
-        
         
         if (cipherType.equalsIgnoreCase("Atbash")){
             Atbash atbash = new Atbash();

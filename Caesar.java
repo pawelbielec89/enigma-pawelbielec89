@@ -1,18 +1,11 @@
 public class Caesar{
-    public static String selectMode(String mode, String message, String strKey){
+    public static String selectMode(String mode, String message, int key){
 
-        int key = 0;
         String formatMessage = "";
         formatMessage = String.join("", message.split(" "));
 
-        int messageLenght = formatMessage.length();  
-        try{
-            key = Integer.parseInt(strKey);
-        }
-        catch(NumberFormatException ex){
-            System.out.println("Need intiger");
-            System.exit(0);         
-        }
+        int messageLenght = formatMessage.length();   
+      
         if(mode.equals("-e")){
             String cipher = encryption(key, formatMessage, messageLenght);
             return cipher;
