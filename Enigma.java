@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 import sun.security.pkcs11.wrapper.CK_MECHANISM;
 
@@ -25,13 +26,20 @@ public class Enigma{
             try{
                 cipherKey = Integer.parseInt(commandLineArgs[2]);
             }
-            catch (NumberFormatException ex){
-                System.out.println("Number is require ! ");
-                System.exit(0);
+            if(displayParameter.equalsIgnoreCase("-l")){
+                System.out.print(
+                "Possible Ciphers:\n"+
+                "Atbash\n"+
+                "Caesar\n"+
+                "Baconian\n"+
+                "Xor\n");
             }
+            if (commandLineArgs.length > 1)
+                cipherType = commandLineArgs[1];
+            if (commandLineArgs.length > 2)
+                cipherKey = commandLineArgs[2];
 
         }
-
         catch (ArrayIndexOutOfBoundsException e){
             System.out.println("Not enough parameters! Try: java Enigma -h");
             System.exit(0);
@@ -73,21 +81,15 @@ public class Enigma{
           Trifid.selectMode(displayParameter, message, cipherKey, alphabet);
           }
     }
-    public static List<String> fileReader(String sourceFile){
-        File file = new File(sourceFile);
+    public static List<String> fileReader(Scanner file){
+
         List<String> messageCipher = new ArrayList<>();
-
-        try{
-            messageCipher = Files.readAllLines(file.toPath());
-        }
-        catch (IOException ex){
-            System.out.println("Error occour " + ex);
-        }
-        if (messageCipher.isEmpty()){
-            System.out.println("File is empty: ");
+        while (file.hasNext()){
+            messageCipher.add(file.nextLine());
         }
 
-		return messageCipher;
+        return messageCipher;
+
     }
     public static String formatMessage(List<String> messageLoaded){
 
@@ -102,8 +104,11 @@ public class Enigma{
 
     public static void main(String[] args){
 
-        List<String> messageLoaded = fileReader("code.txt");
+        Scanner sc = new Scanner(System.in);
+        List<String> messageLoaded = fileReader(sc);
         String message = formatMessage(messageLoaded);
+        System.out.println(message);
+        String option = "-h, -l, -e, -d";
 
         startProgram(args, message);
     }

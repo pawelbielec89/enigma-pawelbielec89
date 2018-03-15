@@ -15,8 +15,9 @@ public class Validation{
     }
 
     private static void checkMaxValue(String chain) throws InvalidInputException{
-        if (chain.substring(0, 2).equalsIgnoreCase("bb"))
-            if (!chain.substring(2).equalsIgnoreCase("aab"))
+
+        if (chain.substring(0, 2).equalsIgnoreCase("BB"))
+            if (!chain.substring(2).equalsIgnoreCase("AAA") && !chain.substring(2, 5).equalsIgnoreCase("AAB"))
                 throw new InvalidInputException("Invalid input - too big number in bytes!");
     }
 

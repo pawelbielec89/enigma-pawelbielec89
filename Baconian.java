@@ -1,6 +1,7 @@
 public class Baconian{
 
-    private static String[] getAlphabet(){
+    public static String[] getAlphabet(){
+
         String [] alphabet = {"A", "B", "C", "D", "E",
                               "F", "G", "H", "I", "J",
                               "K", "L", "M", "N", "O",
@@ -9,7 +10,7 @@ public class Baconian{
                               "Z"};
         return alphabet;
     }
-    
+        
     private static void decodeChain(String chain){
         
         int alphabetIndex = 0;
@@ -36,9 +37,10 @@ public class Baconian{
             }
             decodeChain(chain);
         }
+        System.out.println();
     }
 
-    private static int getLetterIndex(String letter){
+    public static int getLetterIndex(String letter){
         
         int letterIndex = 0;
         String[] alphabet = getAlphabet();
@@ -93,11 +95,10 @@ public class Baconian{
     }
 
     public void encription(String mode, String message){
-        // String[] cipher = message.split(" ");
-        String[] cipher = {"aaaaa", "bbaab"};
+        String[] cipher = message.split(" ");
         if (mode.equalsIgnoreCase("-d"))            
             decodeCipher(cipher);
         else
-            encodeCipher("hehu ojre as");
+            encodeCipher(message);
     }
 }
