@@ -37,6 +37,7 @@ public class Baconian{
             }
             decodeChain(chain);
         }
+        System.out.println();
     }
 
     public static int getLetterIndex(String letter){
