@@ -1,15 +1,30 @@
-import java.util.Scanner;
-
 public class Caesar{
+    public static void selectMode(String mode, String message, String strKey){
 
-    Scanner myscanner = new Scanner(System.in);
-    int key = myscanner.nextInt();
+        int key = 0;
+        String formatMessage = "";
+        formatMessage = String.join("", message.split(" "));
 
-    public void encryption(String message){
-        int messageLenght = message.length(); 
+        int messageLenght = formatMessage.length();  
+        try{
+            key = Integer.parseInt(strKey);
+        }
+        catch(NumberFormatException ex){
+            System.out.println("Need intiger");
+            System.exit(0);         
+        }
+        if(mode.equals("-e")){
+            encryption(key, formatMessage, messageLenght);
+        }
+        else{
+            decodeCipher(key, formatMessage, messageLenght);
+        }  
+    }
+    public static void encryption(int key, String formatMessage, int messageLenght){
 
+       
         for(int i = 0; i < messageLenght ; i++){   
-            char character = message.charAt(i); 
+            char character = formatMessage.charAt(i); 
             int ascii = (int) character;
             if (ascii + key > 122){
                 ascii -= 26;
@@ -23,12 +38,11 @@ public class Caesar{
         }
     }
 
-    public void decodeCipher(String message){      
+    public static void decodeCipher(int key,String formatMessage, int messageLenght){      
 
-        int messageLenght = message.length(); 
         
         for(int i = 0; i < messageLenght ; i++){   
-            char character = message.charAt(i); 
+            char character = formatMessage.charAt(i); 
             int ascii = (int) character; 
             if (ascii - key < 97){
                 ascii += 26;

@@ -13,32 +13,36 @@ public class Enigma{
     private static void startProgram(String[] commandLineArgs, String message) {
 		String displayParameter = "";
         String cipherType = "";
+        String cipherKey = "";
         try{
+            
             displayParameter = commandLineArgs[0];
             if (displayParameter.equalsIgnoreCase("-h")){
-                System.out.println("Print help");
-                System.exit(0);
+                System.out.println("Always read carrefully help");
+                System.exit(0);    
             }
-            cipherType = commandLineArgs[1];
-
+            if(displayParameter.equalsIgnoreCase("-l")){
+                System.out.print(
+                "Possible Ciphers:\n"+
+                "Atbash\n"+
+                "Caesar\n"+
+                "Baconian\n"+
+                "Xor\n");
+            }             
+            if (commandLineArgs.length > 1)
+                cipherType = commandLineArgs[1];
+            if (commandLineArgs.length > 2)
+                cipherKey = commandLineArgs[2];  
         }
 
         catch (ArrayIndexOutOfBoundsException e){
             System.out.println("Not enough parameters! Try: java Enigma -h");
             System.exit(0);
         }
-       
-        if (displayParameter.equalsIgnoreCase("-l")){
-            System.out.print
-            (
-            "Possible Ciphers:\n"+
-            "Atbash\n"+
-            "Rail_fence\n"+
-            "#3 AUTOKEYYYY\n"+
-            "#4 I CZWARTE\n"
-            );
-        }
-        else if (cipherType.equalsIgnoreCase("Atbash")){
+    
+        
+        
+        if (cipherType.equalsIgnoreCase("Atbash")){
             Atbash atbash = new Atbash();
             atbash.atbashCipher(message);
         }
@@ -48,33 +52,32 @@ public class Enigma{
             baconian.encription(displayParameter, message);
         }
         else if (cipherType.equalsIgnoreCase("Caesar")){
-            Caesar caesarCipher = new Caesar();
-            //caesarCipher.encryption(message);
-            caesarCipher.decodeCipher(message);
-            
+           
+            Caesar.selectMode(displayParameter, message, cipherKey);
         }
     }
     public static List<String> fileReader(String sourceFile){
         File file = new File(sourceFile);
         List<String> messageCipher = new ArrayList<>();
-        if (file.exists()){
-            try{
-                messageCipher = Files.readAllLines(file.toPath());
-            }
-            catch (IOException ex){
-                System.out.println("Error occour " + ex);
-            }
-            if (messageCipher.isEmpty()){
-                System.out.println("File is empty: ");
-            }
+    
+        try{
+            messageCipher = Files.readAllLines(file.toPath());
         }
+        catch (IOException ex){
+            System.out.println("Error occour " + ex);
+        }
+        if (messageCipher.isEmpty()){
+            System.out.println("File is empty: ");
+        }
+    
 		return messageCipher;
     }
     public static String formatMessage(List<String> messageLoaded){
 
         String message = "";
-        for (String element: messageLoaded){
-            message = String.join("", element.split(" "));
+
+        for (int i = 0; i < messageLoaded.size(); i++ ){
+            message += String.join("", messageLoaded.get(i));
         }
         return message;
     }
@@ -84,8 +87,14 @@ public class Enigma{
 
         List<String> messageLoaded = fileReader("code.txt");
         String message = formatMessage(messageLoaded);
+        String option = "-h, -l, -e, -d";
 
-        startProgram(args, message);       
+        if (option.contains(args[0])){
+            startProgram(args, message);  
+        }
+        else{
+            System.out.println("Enter -h to help or -l to display list of ciphers");
+        }      
     }
 }
 
