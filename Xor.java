@@ -3,13 +3,13 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Xor {
-    public static void encription(String message) {
+    public static void encription(String message, int key) {
 
         StringBuilder builder = new StringBuilder();
         String alphabetString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
         for (int i = 0; i < message.length(); i++) {
-            int num = 10;
+            int num = key;
             String letter = "" + message.charAt(i);
 
             if (letter.equalsIgnoreCase(" "))
