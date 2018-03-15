@@ -1,9 +1,16 @@
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Trifid{
     static int arrayLength = 3;
     static char[][][] coordCube = new char[arrayLength][arrayLength][arrayLength];
+    static char[] alphabet = {'a','b','c','d','e','f','g','h','i',
+                              'j','k','l','m','n','o','p','q','r',
+                              's','t','u','v','w','x','y','z','.'};
 
+    public Trifid(){
 
-    public Trifid(char[] alphabet){
       int index = 0;
         for(int i = 0; i < arrayLength; i++){
           for(int j = 0; j < arrayLength; j++){
@@ -17,7 +24,7 @@ public class Trifid{
       }
 
 
-     public static void selectMode(String mode, String message, int key, char alphabet[]){
+     public static void selectMode(String mode, String message, int key){
        String formatMessage = "";
        formatMessage = message.replace(" ", "");
        char[] arrayMessage = formatMessage.toCharArray();
@@ -37,8 +44,9 @@ public class Trifid{
       int[] arrayY = new int[messageLenght];
       int[] arrayZ = new int[messageLenght];
     //  for(int x = 0; x < messageLenght; x++){
-      while(messageIndex < (messageLenght)){
-
+    //messageLenght = 19
+      while(messageIndex < messageLenght){
+        outerloop:
         for(int i = 0; i < arrayLength; i++){
           for(int j = 0; j < arrayLength; j++){
             for(int k = 0; k < arrayLength; k++){
@@ -47,42 +55,45 @@ public class Trifid{
                 arrayY[messageIndex] = j;
                 arrayZ[messageIndex] = k;
                 messageIndex++;
-                break;
-                
+                break outerloop;
                 }
               }
             }
           }
         }
-      System.out.print(arrayX[0]);
-      System.out.print(arrayY[0]);
-      System.out.print(arrayZ[0]);
-      System.out.print(arrayX[1]);
-      System.out.print(arrayY[1]);
-      System.out.print(arrayZ[1]);
-      System.out.print(arrayX[2]);
-      System.out.print(arrayY[2]);
-      System.out.print(arrayZ[2]);
-      System.out.print(arrayX[3]);
-      System.out.print(arrayY[3]);
-      System.out.print(arrayZ[3]);
-      System.out.print(arrayX[4]);
-      System.out.print(arrayY[4]);
-      System.out.print(arrayZ[4]);
-      System.out.print(arrayX[5]);
-      System.out.print(arrayY[5]);
-      System.out.print(arrayZ[5]);
-      System.out.print(arrayX[6]);
-      System.out.print(arrayY[6]);
-      System.out.print(arrayZ[6]);
-      System.out.print(arrayX[7]);
-      System.out.print(arrayY[7]);
-      System.out.print(arrayZ[7]);
-      System.out.print(arrayX[8]);
-      System.out.print(arrayY[8]);
-      System.out.print(arrayZ[8]);
-     }
+      int start = 0;
+      int end = arrayX.length;
+      List<String> result = new ArrayList<>();
+      while (start < end){
+      StringBuilder matrix = new StringBuilder();
+      for (int i = start; i < start + key && i < end; i++) {
+       matrix.append(arrayX[i]);
+      }
+      for (int i = start; i < start + key && i < end; i++) {
+         matrix.append(arrayY[i]);
+      }
+      for (int i = start; i < start + key && i < end; i++) {
+         matrix.append(arrayZ[i]);
+      }
+      start += key;
+      result.add(matrix.toString());
+      }
 
+      int sequence = 0;
+      while (sequence < arrayLength){
+      int beguin = 0;
+      int finish = result.size();
+      StringBuilder finalCipher = new StringBuilder();
+      for (int i = 0; i < beguin + key && i < finish; i++){
+        int x = Integer.parseInt(result.get(i));
+        int y = Integer.parseInt(result.get(i+1));
+        int z = Integer.parseInt(result.get(i+2));
+
+        finalCipher.append(coordCube[x][y][z]);
+      }
+      sequence += key;
+    }
+  }
      public static void decodeCipher(int key,String formatMessage, int messageLenght){
        System.out.print("Dziala Decrypt");
      }
