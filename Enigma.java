@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOError;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,12 +15,13 @@ public class Enigma{
     private static void startProgram(String[] commandLineArgs, String message) {
 		String displayParameter = "";
         String cipherType = "";
-        String cipherKey = "";
+        int cipherKey = 0;
+        
         try{
             
             displayParameter = commandLineArgs[0];
             if (displayParameter.equalsIgnoreCase("-h")){
-                System.out.println("Always read carrefully help");
+                System.out.println("Enter -h to encryption or -f to decode cipher");
                 System.exit(0);    
             }
             if(displayParameter.equalsIgnoreCase("-l")){
@@ -33,19 +35,24 @@ public class Enigma{
             if (commandLineArgs.length > 1)
                 cipherType = commandLineArgs[1];
             if (commandLineArgs.length > 2)
-                cipherKey = commandLineArgs[2];
+                try{
+                    cipherKey = Integer.parseInt(commandLineArgs[2]);
+                }
+                catch(NumberFormatException ex){
+                    System.out.println("Need intiger");
+                    System.exit(0);         
+                }
                 
         }
         catch (ArrayIndexOutOfBoundsException e){
             System.out.println("Not enough parameters! Try: java Enigma -h");
             System.exit(0);
         }
-    
-        
         
         if (cipherType.equalsIgnoreCase("Atbash")){
             Atbash atbash = new Atbash();
-            atbash.atbashCipher(message);
+            String cipheredMessage = atbash.atbashCipher(message);
+            saveToFile(cipheredMessage);
         }
 
         else if (cipherType.equalsIgnoreCase("Baconian")){
@@ -54,7 +61,8 @@ public class Enigma{
         }
         else if (cipherType.equalsIgnoreCase("Caesar")){
            
-            Caesar.selectMode(displayParameter, message, cipherKey);
+            String cipheredMessage = Caesar.selectMode(displayParameter, message, cipherKey);
+            saveToFile(cipheredMessage);
         }
     }
     public static List<String> fileReader(Scanner file){
@@ -67,6 +75,20 @@ public class Enigma{
         return messageCipher;
 
     }
+
+    public static void saveToFile(String dateToSave) {
+
+        try{
+            FileWriter file = new FileWriter("decodedCipher.txt");           
+                        
+            file.write(dateToSave + "\n");
+            file.close();
+        }
+        catch(IOException ioe){
+            System.err.println("IOException: " + ioe.getMessage());
+        }
+    }
+
     public static String formatMessage(List<String> messageLoaded){
 
         String message = "";
@@ -86,10 +108,15 @@ public class Enigma{
         System.out.println(message);
         String option = "-h, -l, -e, -d";
 
-        if (option.contains(args[0])){
-            startProgram(args, message);  
-        }
-        else{
+        try{
+            if (option.contains(args[0])){
+                startProgram(args, message);  
+            }
+            else{
+                System.out.println("Enter -h to help or -l to display list of ciphers");
+            } 
+        }  
+        catch(ArrayIndexOutOfBoundsException ex){
             System.out.println("Enter -h to help or -l to display list of ciphers");
         }      
     }
