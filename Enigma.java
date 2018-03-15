@@ -57,17 +57,17 @@ public class Enigma{
     public static List<String> fileReader(String sourceFile){
         File file = new File(sourceFile);
         List<String> messageCipher = new ArrayList<>();
-        if (file.exists()){
-            try{
-                messageCipher = Files.readAllLines(file.toPath());
-            }
-            catch (IOException ex){
-                System.out.println("Error occour " + ex);
-            }
-            if (messageCipher.isEmpty()){
-                System.out.println("File is empty: ");
-            }
+    
+        try{
+            messageCipher = Files.readAllLines(file.toPath());
         }
+        catch (IOException ex){
+            System.out.println("Error occour " + ex);
+        }
+        if (messageCipher.isEmpty()){
+            System.out.println("File is empty: ");
+        }
+    
 		return messageCipher;
     }
     public static String formatMessage(List<String> messageLoaded){
