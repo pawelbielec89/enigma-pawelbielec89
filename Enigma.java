@@ -15,12 +15,12 @@ public class Enigma{
 		String displayParameter = "";
         String cipherType = "";
         int cipherKey = 0;
-        
+
         try{
             displayParameter = commandLineArgs[0];
             if (displayParameter.equalsIgnoreCase("-h")){
                 System.out.println("Enter -e to encryption or -d to decode cipher");
-                System.exit(0);    
+                System.exit(0);
             }
             if(displayParameter.equalsIgnoreCase("-l")){
                 System.out.print(
@@ -40,13 +40,13 @@ public class Enigma{
                     System.out.println("Need intiger");
                     System.exit(0);         
                 }
-                
+
         }
         catch (ArrayIndexOutOfBoundsException e){
             System.out.println("Not enough parameters! Try: java Enigma -h");
             System.exit(0);
         }
-        
+
         if (cipherType.equalsIgnoreCase("Atbash")){
             Atbash atbash = new Atbash();
             String cipheredMessage = atbash.atbashCipher(message);
@@ -58,15 +58,13 @@ public class Enigma{
             baconian.encription(displayParameter, message);
         }
         else if (cipherType.equalsIgnoreCase("Caesar")){
-           
+
             String cipheredMessage = Caesar.selectMode(displayParameter, message, cipherKey);
             saveToFile(cipheredMessage);
         }
-        else if (cipherType.equalsIgnoreCase("Xor")){
-            Xor.encription(message, cipherKey);
-        }
         else if (cipherType.equalsIgnoreCase("Trifid")){
-            Trifid.selectMode(displayParameter, message, cipherKey);
+            Trifid trifidCipher = new Trifid();
+            trifidCipher.selectMode(displayParameter, message, cipherKey);
           }
     }
     public static List<String> fileReader(Scanner file){
@@ -83,8 +81,8 @@ public class Enigma{
     public static void saveToFile(String dateToSave) {
 
         try{
-            FileWriter file = new FileWriter("decodedCipher.txt");           
-                        
+            FileWriter file = new FileWriter("decodedCipher.txt");
+
             file.write(dateToSave + "\n");
             file.close();
         }
@@ -109,18 +107,19 @@ public class Enigma{
         Scanner sc = new Scanner(System.in);
         List<String> messageLoaded = fileReader(sc);
         String message = formatMessage(messageLoaded);
+        System.out.println(message);
         String option = "-h, -l, -e, -d";
 
         try{
             if (option.contains(args[0])){
-                startProgram(args, message);  
+                startProgram(args, message);
             }
             else{
                 System.out.println("Enter -h to help or -l to display list of ciphers");
-            } 
-        }  
+            }
+        }
         catch(ArrayIndexOutOfBoundsException ex){
             System.out.println("Enter -h to help or -l to display list of ciphers");
-        }      
+        }
     }
 }
