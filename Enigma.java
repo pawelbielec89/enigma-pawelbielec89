@@ -38,7 +38,7 @@ public class Enigma{
                 }
                 catch(NumberFormatException ex){
                     System.out.println("Need intiger");
-                    System.exit(0);         
+                    System.exit(0);
                 }
 
         }
